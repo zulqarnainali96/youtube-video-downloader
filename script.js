@@ -168,14 +168,6 @@ document
     }, 100);
   });
 
-// FAQ toggle functionality
-const faqItems = document.querySelectorAll(".faq-item");
-faqItems.forEach((item) => {
-  const question = item.querySelector(".faq-question");
-  question.addEventListener("click", () => {
-    item.classList.toggle("active");
-  });
-});
 
 // Helper function to extract YouTube video ID
 function extractVideoId(url) {

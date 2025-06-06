@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YTDownloader | Download YouTube Videos</title>
+    <title>YTDownloader - Download YouTube Videos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -27,6 +27,9 @@
             background-color: var(--yt-light);
             color: var(--yt-text);
             line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
@@ -75,13 +78,59 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
         }
         
         .nav-links a:hover {
             color: var(--yt-red);
         }
         
-        /* Hero Section */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--yt-red);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Page Content */
+        .page-content {
+            flex: 1;
+            padding: 40px 0;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .page-title h1 {
+            font-size: 2.8rem;
+            color: var(--yt-dark);
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--yt-red);
+            border-radius: 2px;
+        }
+        
+        /* Home Page */
         .hero {
             text-align: center;
             padding: 60px 20px;
@@ -104,7 +153,6 @@
             color: #555;
         }
         
-        /* Download Form */
         .download-form {
             display: flex;
             max-width: 800px;
@@ -141,7 +189,6 @@
             background-color: #cc0000;
         }
         
-        /* Features Section */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -173,7 +220,6 @@
             font-size: 1.4rem;
         }
         
-        /* How It Works */
         .how-it-works {
             background-color: var(--yt-card);
             border-radius: 15px;
@@ -221,14 +267,13 @@
             margin-bottom: 15px;
         }
         
-        /* Video Preview */
         .video-preview {
             background-color: var(--yt-card);
             border-radius: 15px;
             padding: 30px;
             margin: 60px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: none; /* Hidden by default */
+            display: none;
         }
         
         .preview-header {
@@ -255,6 +300,8 @@
             align-items: center;
             justify-content: center;
             color: var(--yt-gray);
+            background-size: cover;
+            background-position: center;
         }
         
         .video-info {
@@ -315,12 +362,150 @@
             font-size: 0.9rem;
         }
         
+        /* How It Works Page */
+        .process-section {
+            background-color: var(--yt-card);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .process-step {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .step-icon {
+            min-width: 80px;
+            height: 80px;
+            background-color: rgba(255, 0, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--yt-red);
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        /* Features Page */
+        .features-section {
+            background-color: var(--yt-card);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-item i {
+            font-size: 40px;
+            color: var(--yt-red);
+            margin-bottom: 20px;
+        }
+        
+        /* FAQ Page */
+        .faq-section {
+            background-color: var(--yt-card);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .faq-question {
+            background-color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-question::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            background-color: white;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
         /* Footer */
         footer {
             background-color: var(--yt-dark);
             color: white;
             padding: 40px 0 20px;
-            margin-top: 60px;
+            margin-top: auto;
         }
         
         .footer-content {
@@ -347,6 +532,9 @@
             color: #ccc;
             text-decoration: none;
             transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .footer-links a:hover {
@@ -359,6 +547,28 @@
             border-top: 1px solid #444;
             color: #aaa;
             font-size: 0.9rem;
+        }
+        
+        /* Page Navigation */
+        .page-navigation {
+            display: none;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .page-btn {
+            padding: 10px 20px;
+            background-color: var(--yt-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .page-btn:hover {
+            background-color: #cc0000;
         }
         
         /* Responsive */
@@ -380,6 +590,15 @@
                 width: 100%;
                 text-align: center;
             }
+            
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-icon {
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -388,142 +607,387 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo">
+                <a href="#" class="logo" id="home-link">
                     <i class="fab fa-youtube"></i>
                     <span>YTDownloader</span>
                 </a>
                 <div class="nav-links">
-                    <a href="#">Home</a>
-                    <a href="#">How It Works</a>
-                    <a href="#">Features</a>
-                    <a href="#">FAQ</a>
+                    <a href="#" id="home-nav">Home</a>
+                    <a href="#" id="how-it-works-nav">How It Works</a>
+                    <a href="#" id="features-nav">Features</a>
+                    <a href="#" id="faq-nav">FAQ</a>
                 </div>
             </nav>
         </div>
     </header>
     
-    <!-- Hero Section -->
+    <!-- Page Content -->
     <div class="container">
-        <section class="hero">
-            <h1>Download YouTube Videos in Seconds</h1>
-            <p>Free, fast, and easy to use - Download videos in HD quality without any watermarks</p>
-            
-            <div class="download-form">
-                <input type="url" class="url-input" placeholder="Paste YouTube video URL here..." id="video-url">
-                <button class="download-btn" id="fetch-btn">
-                    <i class="fas fa-download"></i> Download
-                </button>
-            </div>
-        </section>
-        
-        <!-- Features Section -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <h3>Lightning Fast</h3>
-                <p>Download videos at high speeds without any limitations or waiting times.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-highlighter"></i>
-                </div>
-                <h3>High Quality</h3>
-                <p>Get videos in up to 4K resolution with crystal clear audio quality.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Safe & Secure</h3>
-                <p>No malware or viruses. Your privacy is our top priority.</p>
-            </div>
-        </section>
-        
-        <!-- How It Works -->
-        <section class="how-it-works">
-            <h2>How To Download YouTube Videos</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Copy URL</h3>
-                    <p>Copy the URL of the YouTube video you want to download</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Paste Link</h3>
-                    <p>Paste the URL into the input field above</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Choose Format</h3>
-                    <p>Select your preferred video quality and format</p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Download</h3>
-                    <p>Click the download button and save your video</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Video Preview (Initially Hidden) -->
-        <section class="video-preview" id="preview-section">
-            <div class="preview-header">
-                <h2>Video Download Options</h2>
-                <button id="new-video-btn">
-                    <i class="fas fa-sync"></i> New Video
-                </button>
-            </div>
-            
-            <div class="preview-content">
-                <div class="thumbnail">
-                    <i class="fas fa-play-circle" style="font-size: 60px;"></i>
-                </div>
-                
-                <div class="video-info">
-                    <h3>How to Build a Modern Website - Complete Tutorial</h3>
-                    <div class="video-meta">
-                        <span><i class="fas fa-user"></i> Web Dev Tutorials</span>
-                        <span><i class="fas fa-clock"></i> 15:42</span>
-                        <span><i class="fas fa-calendar"></i> Jun 15, 2023</span>
-                    </div>
-                    <p>In this comprehensive tutorial, you'll learn how to build a responsive, modern website from scratch using HTML, CSS, and JavaScript.</p>
+        <div class="page-content" id="page-content">
+            <!-- Home Page Content (default) -->
+            <div id="home-page">
+                <section class="hero">
+                    <h1>Download YouTube Videos in Seconds</h1>
+                    <p>Free, fast, and easy to use - Download videos in HD quality without any watermarks</p>
                     
-                    <div class="download-options">
-                        <h3>Select Download Format:</h3>
-                        <div class="options-grid">
-                            <div class="option-btn active">
-                                <h4>MP4 1080p</h4>
-                                <p>High Quality Video</p>
+                    <div class="download-form">
+                        <input type="url" class="url-input" placeholder="Paste YouTube video URL here..." id="video-url">
+                        <button class="download-btn" id="fetch-btn">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </section>
+                
+                <section class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p>Download videos at high speeds without any limitations or waiting times.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-highlighter"></i>
+                        </div>
+                        <h3>High Quality</h3>
+                        <p>Get videos in up to 4K resolution with crystal clear audio quality.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Safe & Secure</h3>
+                        <p>No malware or viruses. Your privacy is our top priority.</p>
+                    </div>
+                </section>
+                
+                <section class="how-it-works">
+                    <h2>How To Download YouTube Videos</h2>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h3>Copy URL</h3>
+                            <p>Copy the URL of the YouTube video you want to download</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h3>Paste Link</h3>
+                            <p>Paste the URL into the input field above</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h3>Choose Format</h3>
+                            <p>Select your preferred video quality and format</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <h3>Download</h3>
+                            <p>Click the download button and save your video</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="video-preview" id="preview-section">
+                    <div class="preview-header">
+                        <h2>Video Download Options</h2>
+                        <button id="new-video-btn">
+                            <i class="fas fa-sync"></i> New Video
+                        </button>
+                    </div>
+                    
+                    <div class="preview-content">
+                        <div class="thumbnail" id="video-thumbnail">
+                            <i class="fas fa-play-circle" style="font-size: 60px;"></i>
+                        </div>
+                        
+                        <div class="video-info">
+                            <h3 id="video-title">How to Build a Modern Website - Complete Tutorial</h3>
+                            <div class="video-meta">
+                                <span><i class="fas fa-user"></i> <span id="video-author">Web Dev Tutorials</span></span>
+                                <span><i class="fas fa-clock"></i> <span id="video-duration">15:42</span></span>
+                                <span><i class="fas fa-calendar"></i> <span id="video-date">Jun 15, 2023</span></span>
                             </div>
-                            <div class="option-btn">
-                                <h4>MP4 720p</h4>
-                                <p>Medium Quality</p>
+                            <p id="video-description">In this comprehensive tutorial, you'll learn how to build a responsive, modern website from scratch using HTML, CSS, and JavaScript.</p>
+                            
+                            <div class="download-options">
+                                <h3>Select Download Format:</h3>
+                                <div class="options-grid" id="format-options">
+                                    <div class="option-btn active" data-format="mp4-1080">
+                                        <h4>MP4 1080p</h4>
+                                        <p>High Quality Video</p>
+                                    </div>
+                                    <div class="option-btn" data-format="mp4-720">
+                                        <h4>MP4 720p</h4>
+                                        <p>Medium Quality</p>
+                                    </div>
+                                    <div class="option-btn" data-format="mp4-480">
+                                        <h4>MP4 480p</h4>
+                                        <p>Standard Quality</p>
+                                    </div>
+                                    <div class="option-btn" data-format="mp3">
+                                        <h4>MP3</h4>
+                                        <p>Audio Only</p>
+                                    </div>
+                                </div>
+                                
+                                <button class="download-btn" id="download-now-btn" style="margin-top: 25px; padding: 15px 25px;">
+                                    <i class="fas fa-download"></i> Download Now
+                                </button>
                             </div>
-                            <div class="option-btn">
-                                <h4>MP4 480p</h4>
-                                <p>Standard Quality</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- How It Works Page -->
+            <div id="how-it-works-page" style="display: none;">
+                <div class="page-title">
+                    <h1>How It Works</h1>
+                </div>
+                
+                <div class="process-section">
+                    <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px;">
+                        Our YouTube downloader is designed with simplicity in mind. Follow these simple steps to download any YouTube video in your preferred format.
+                    </p>
+                    
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-icon">
+                                <i class="fas fa-link"></i>
                             </div>
-                            <div class="option-btn">
-                                <h4>MP3</h4>
-                                <p>Audio Only</p>
+                            <div class="step-content">
+                                <h3>Copy the YouTube URL</h3>
+                                <p>Go to YouTube and find the video you want to download. Copy the URL from the address bar of your browser.</p>
                             </div>
                         </div>
                         
-                        <button class="download-btn" style="margin-top: 25px; padding: 15px 25px;">
-                            <i class="fas fa-download"></i> Download Now
-                        </button>
+                        <div class="process-step">
+                            <div class="step-icon">
+                                <i class="fas fa-paste"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Paste the URL</h3>
+                                <p>Return to YTDownloader and paste the copied URL into the input field on our homepage.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-icon">
+                                <i class="fas fa-sliders-h"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Choose Your Format</h3>
+                                <p>Select your preferred format and quality. We support MP4 (1080p, 720p, 480p) and MP3 audio formats.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>Download Your Video</h3>
+                                <p>Click the download button and your video will start downloading immediately to your device.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
+                <div class="features-section">
+                    <h2 style="text-align: center; margin-bottom: 30px;">Why Choose Our Downloader?</h2>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>100% Safe</h3>
+                            <p>No malware, viruses, or tracking. Your privacy is protected.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-rocket"></i>
+                            <h3>Fast Downloads</h3>
+                            <p>Optimized servers ensure the fastest possible download speeds.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-infinity"></i>
+                            <h3>No Limits</h3>
+                            <p>Unlimited downloads with no file size restrictions.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Device Friendly</h3>
+                            <p>Works on all devices - desktop, tablet, and mobile.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="page-btn" id="how-to-home-btn">
+                        <i class="fas fa-home"></i> Back to Home
+                    </button>
+                </div>
             </div>
-        </section>
+            
+            <!-- Features Page -->
+            <div id="features-page" style="display: none;">
+                <div class="page-title">
+                    <h1>Features</h1>
+                </div>
+                
+                <div class="features-section">
+                    <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px;">
+                        Discover the powerful features that make YTDownloader the best YouTube video downloader available.
+                    </p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-hd"></i>
+                            <h3>High-Quality Downloads</h3>
+                            <p>Download videos in up to 4K resolution with crystal clear audio quality.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Lightning Fast</h3>
+                            <p>Our optimized servers ensure the fastest download speeds possible.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-music"></i>
+                            <h3>Audio Extraction</h3>
+                            <p>Extract MP3 audio from any YouTube video with one click.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-lock"></i>
+                            <h3>Secure & Private</h3>
+                            <p>No registration required. We don't store your data or download history.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-infinity"></i>
+                            <h3>Unlimited Downloads</h3>
+                            <p>No restrictions on the number of videos you can download.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Mobile Friendly</h3>
+                            <p>Works perfectly on all mobile devices and tablets.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-sync-alt"></i>
+                            <h3>Regular Updates</h3>
+                            <p>We continuously update our service to work with the latest YouTube changes.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-globe"></i>
+                            <h3>No Regional Restrictions</h3>
+                            <p>Download videos regardless of your geographical location.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="page-btn" id="features-to-home-btn">
+                        <i class="fas fa-home"></i> Back to Home
+                    </button>
+                </div>
+            </div>
+            
+            <!-- FAQ Page -->
+            <div id="faq-page" style="display: none;">
+                <div class="page-title">
+                    <h1>Frequently Asked Questions</h1>
+                </div>
+                
+                <div class="faq-section">
+                    <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px;">
+                        Find answers to common questions about our YouTube downloader service.
+                    </p>
+                    
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question">Is it legal to download YouTube videos?</div>
+                            <div class="faq-answer">
+                                <p>Downloading YouTube videos is against YouTube's Terms of Service. However, it is legal for personal use in many jurisdictions. We recommend using downloaded videos only for personal, offline viewing and always respecting copyright laws.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do I need to install software to use this service?</div>
+                            <div class="faq-answer">
+                                <p>No, our YouTube downloader is completely web-based. You don't need to install any software or browser extensions. Just visit our website and start downloading videos directly from your browser.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">What video formats do you support?</div>
+                            <div class="faq-answer">
+                                <p>We support multiple formats including MP4 (1080p, 720p, 480p) for video downloads and MP3 for audio-only downloads. The available formats depend on the original video's quality settings.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Is there a limit to how many videos I can download?</div>
+                            <div class="faq-answer">
+                                <p>No, there are no limits on the number of videos you can download. You can download as many videos as you want, whenever you want.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How long does it take to download a video?</div>
+                            <div class="faq-answer">
+                                <p>Download times depend on your internet connection speed and the size of the video. Our servers are optimized for fast downloads, so it should be as fast as your connection allows.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Do you store downloaded videos on your servers?</div>
+                            <div class="faq-answer">
+                                <p>No, we don't store any downloaded videos on our servers. Videos are processed in real-time and sent directly to your browser. We also don't keep logs of your download activity.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Can I download videos on my mobile device?</div>
+                            <div class="faq-answer">
+                                <p>Yes, our service works on all modern mobile devices including smartphones and tablets. Simply visit our website using your mobile browser and download videos just like you would on a desktop.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Why isn't the video downloading?</div>
+                            <div class="faq-answer">
+                                <p>If you're having trouble downloading a video, please try the following:</p>
+                                <ol>
+                                    <li>Ensure you've entered the correct YouTube URL</li>
+                                    <li>Check your internet connection</li>
+                                    <li>Try a different format</li>
+                                    <li>Clear your browser cache and try again</li>
+                                </ol>
+                                <p>If problems persist, please contact our support team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="page-btn" id="faq-to-home-btn">
+                        <i class="fas fa-home"></i> Back to Home
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- Footer -->
@@ -538,20 +1002,20 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#" id="footer-home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#" id="footer-how"><i class="fas fa-cogs"></i> How It Works</a></li>
+                        <li><a href="#" id="footer-features"><i class="fas fa-star"></i> Features</a></li>
+                        <li><a href="#" id="footer-faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Legal</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Copyright Info</a></li>
-                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#"><i class="fas fa-scale-balanced"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-copyright"></i> Copyright Info</a></li>
+                        <li><a href="#"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
                     </ul>
                 </div>
                 
@@ -561,6 +1025,7 @@
                         <li><a href="#"><i class="fas fa-envelope"></i> support@ytdownloader.com</a></li>
                         <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
                         <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
                     </ul>
                 </div>
             </div>
@@ -572,13 +1037,98 @@
     </footer>
     
     <script>
-        // Simple JavaScript to show the preview section
+        // Page navigation
+        const pages = {
+            home: document.getElementById('home-page'),
+            how: document.getElementById('how-it-works-page'),
+            features: document.getElementById('features-page'),
+            faq: document.getElementById('faq-page')
+        };
+        
+        // Navigation elements
+        const navLinks = {
+            home: document.getElementById('home-nav'),
+            how: document.getElementById('how-it-works-nav'),
+            features: document.getElementById('features-nav'),
+            faq: document.getElementById('faq-nav')
+        };
+        
+        // Footer links
+        const footerLinks = {
+            home: document.getElementById('footer-home'),
+            how: document.getElementById('footer-how'),
+            features: document.getElementById('footer-features'),
+            faq: document.getElementById('footer-faq')
+        };
+        
+        // Home link
+        const homeLink = document.getElementById('home-link');
+        
+        // Navigation buttons
+        const homeButtons = [
+            document.getElementById('how-to-home-btn'),
+            document.getElementById('features-to-home-btn'),
+            document.getElementById('faq-to-home-btn')
+        ];
+        
+        // Function to show a page
+        function showPage(pageName) {
+            // Hide all pages
+            Object.values(pages).forEach(page => page.style.display = 'none');
+            
+            // Show the requested page
+            pages[pageName].style.display = 'block';
+            
+            // Show navigation buttons on non-home pages
+            document.querySelector('.page-navigation').style.display = 
+                pageName === 'home' ? 'none' : 'flex';
+        }
+        
+        // Set up event listeners
+        function setupNavigation() {
+            // Main navigation
+            navLinks.home.addEventListener('click', () => showPage('home'));
+            navLinks.how.addEventListener('click', () => showPage('how'));
+            navLinks.features.addEventListener('click', () => showPage('features'));
+            navLinks.faq.addEventListener('click', () => showPage('faq'));
+            
+            // Footer navigation
+            footerLinks.home.addEventListener('click', () => showPage('home'));
+            footerLinks.how.addEventListener('click', () => showPage('how'));
+            footerLinks.features.addEventListener('click', () => showPage('features'));
+            footerLinks.faq.addEventListener('click', () => showPage('faq'));
+            
+            // Home link
+            homeLink.addEventListener('click', () => showPage('home'));
+            
+            // Home buttons on other pages
+            homeButtons.forEach(btn => {
+                if (btn) btn.addEventListener('click', () => showPage('home'));
+            });
+        }
+        
+        // Video download functionality
         document.getElementById('fetch-btn').addEventListener('click', function() {
             const urlInput = document.getElementById('video-url').value;
             
             if(urlInput) {
                 // Show the preview section
                 document.getElementById('preview-section').style.display = 'block';
+                
+                // Update video info based on URL
+                const videoId = extractVideoId(urlInput);
+                if (videoId) {
+                    // In a real app, we would fetch video info from a backend
+                    // For this demo, we'll simulate with sample data
+                    updateVideoInfo({
+                        title: `Video Title for ${videoId}`,
+                        author: 'Sample Channel',
+                        duration: '10:25',
+                        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                        description: 'This is a sample video description. In a real application, this would be fetched from YouTube.',
+                        thumbnail: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+                    });
+                }
                 
                 // Scroll to the preview section
                 document.getElementById('preview-section').scrollIntoView({
@@ -603,6 +1153,98 @@
                 optionButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
             });
+        });
+        
+        // Download button functionality
+        document.getElementById('download-now-btn').addEventListener('click', function() {
+            const selectedFormat = document.querySelector('.option-btn.active').dataset.format;
+            const videoUrl = document.getElementById('video-url').value;
+            const videoId = extractVideoId(videoUrl);
+            
+            if (!videoId) {
+                alert('Please enter a valid YouTube URL');
+                return;
+            }
+            
+            // In a real application, this would call a backend service
+            // For this demo, we'll simulate download with a sample file
+            
+            // Filename based on format
+            let filename = `youtube_video_${videoId}`;
+            if (selectedFormat === 'mp3') {
+                filename += '.mp3';
+            } else {
+                filename += '.mp4';
+            }
+            
+            // Create a sample file to download
+            const sampleContent = 'This is a simulated download. In a real application, this would be the actual video content.';
+            const blob = new Blob([sampleContent], {type: 'application/octet-stream'});
+            const url = URL.createObjectURL(blob);
+            
+            // Create download link and trigger click
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+        });
+        
+        // FAQ toggle functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Helper function to extract YouTube video ID
+        function extractVideoId(url) {
+            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[7].length === 11) ? match[7] : null;
+        }
+        
+        // Update video info in preview
+        function updateVideoInfo(info) {
+            document.getElementById('video-title').textContent = info.title;
+            document.getElementById('video-author').textContent = info.author;
+            document.getElementById('video-duration').textContent = info.duration;
+            document.getElementById('video-date').textContent = info.date;
+            document.getElementById('video-description').textContent = info.description;
+            
+            // Set thumbnail background image
+            const thumbnail = document.getElementById('video-thumbnail');
+            thumbnail.style.backgroundImage = `url('${info.thumbnail}')`;
+            thumbnail.innerHTML = '<i class="fas fa-play-circle" style="font-size: 60px; text-shadow: 0 0 10px rgba(0,0,0,0.5);"></i>';
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupNavigation();
+            
+            // Show home page by default
+            showPage('home');
+            
+            // Sample video data for demo
+            const sampleVideo = {
+                title: 'How to Build a Modern Website - Complete Tutorial',
+                author: 'Web Dev Tutorials',
+                duration: '15:42',
+                date: 'Jun 15, 2023',
+                description: 'In this comprehensive tutorial, you\'ll learn how to build a responsive, modern website from scratch using HTML, CSS, and JavaScript.',
+                thumbnail: 'https://i.ytimg.com/vi/abc123/maxresdefault.jpg'
+            };
+            
+            // Set sample video for demo purposes
+            updateVideoInfo(sampleVideo);
         });
     </script>
 </body>
